@@ -30,9 +30,9 @@ window.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
-    const deadline = '2020-10-21';
+    const deadline = '2020-10-23';
     const getTime = (endTime) => {
-        t = Date.parse(endTime) - Date.parse(new Date());
+        let t = Date.parse(endTime) - Date.parse(new Date());
         let minutes = Math.floor((t / 1000 / 60) % 60);
         let seconds = Math.floor((t / 1000) % 60);
         let hours = Math.floor((t / 1000 * 60 * 60));
@@ -62,5 +62,5 @@ window.addEventListener('DOMContentLoaded', () => {
             }
         }
     };
-    setClock('time', deadline);
+    setClock('timer', deadline);
 })
