@@ -3,7 +3,6 @@ window.addEventListener('DOMContentLoaded', () => {
     let tab = document.querySelectorAll('.info-header-tab'),
         info = document.querySelector('.info-header'),
         tabContent = document.querySelectorAll('.info-tabcontent');
-    
     const hideTempContent = a => {
         for( let i = a; i < tabContent.length; i++){
             tabContent[i].classList.remove('show');
@@ -30,18 +29,24 @@ window.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
-    const deadline = '2020-10-23';
+    const deadline = '2020-10-31';
     const getTime = (endTime) => {
         let t = Date.parse(endTime) - Date.parse(new Date());
-        let minutes = Math.floor((t / 1000 / 60) % 60);
-        let seconds = Math.floor((t / 1000) % 60);
-        let hours = Math.floor((t / 1000 * 60 * 60));
-        
+        let minutes = new Date(t).getMinutes();
+        let seconds = new Date(t).getSeconds();
+        let hours = new Date(t).getHours();
+        const addNull = (time) =>{
+            if(time < 10){
+                return time = '0' + time;
+            } else {
+                return time;
+            }
+        };
         return {
             total: t,
-            minutes: minutes,
-            seconds: seconds,
-            hours: hours
+            minutes: addNull(minutes),
+            seconds: addNull(seconds),
+            hours: addNull(hours)
         }
     };
     const setClock = (id, endTime) => {
