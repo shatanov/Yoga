@@ -1,8 +1,17 @@
 window.addEventListener('DOMContentLoaded', () => {
     'use strict'
-    let tab = document.querySelectorAll('.info-header-tab'),
+    const tab = document.querySelectorAll('.info-header-tab'),
         info = document.querySelector('.info-header'),
-        tabContent = document.querySelectorAll('.info-tabcontent');
+        tabContent = document.querySelectorAll('.info-tabcontent'),
+        moreBtn = document.querySelector('.more'),
+        overlay = document.querySelector('.overlay'),
+        popupClose = document.querySelector('.popup-close'),
+        descriptionBtn = document.querySelectorAll('.description-btn');
+    const clickDescriptionBtn = (i) => {
+        descriptionBtn[i].addEventListener('click', () => {
+            addOverlay();
+        }); 
+    };
     const hideTempContent = a => {
         for( let i = a; i < tabContent.length; i++){
             tabContent[i].classList.remove('show');
@@ -17,19 +26,19 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     };
     info.addEventListener('click', event => {
-
         const target = event.target;
         if(target && target.classList.contains('info-header-tab')){
             for(let i = 0; i < tab.length; i++){
                 if(target == tab[i]){
                     hideTempContent(0);
                     showTempContent(i);
+                    clickDescriptionBtn(i);
                     break;
                 }
-            }
+            };
         }
     });
-    const deadline = '2020-10-31';
+    const deadline = '2020-11-15';
     const getTime = (endTime) => {
         let t = Date.parse(endTime) - Date.parse(new Date());
         let minutes = new Date(t).getMinutes();
@@ -68,4 +77,20 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     };
     setClock('timer', deadline);
-})
+    const addOverlay = () => {
+        overlay.style.display = 'block';
+        this.classList.add('.more-splash');
+        document.body.style.overflow = 'hidden';
+    };
+    const hideOverlay = () => {
+        overlay.style.display = 'none';
+        overlay.classList.remove('.more-splash');
+        document.body.style.overflow = '';
+    };
+    moreBtn.addEventListener('click', () => {
+        addOverlay();
+    });
+    popupClose.addEventListener('click', () => {
+        hideOverlay();
+    });
+});
